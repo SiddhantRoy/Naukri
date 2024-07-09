@@ -1,0 +1,5 @@
+com\naukri\qa\pages\ProfilePage.class
+com\naukri\qa\utils\TestUtil.class
+com\naukri\qa\pages\HomePage.class
+com\naukri\qa\Base\TestBase.class
+com\naukri\qa\pages\LoginPage.class
