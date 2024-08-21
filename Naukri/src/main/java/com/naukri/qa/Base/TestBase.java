@@ -1,11 +1,17 @@
 package com.naukri.qa.Base;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Properties;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -17,6 +23,7 @@ public class TestBase {
 	
 	public static WebDriver driver;
 	public static Properties prop;
+	
 
 	//create the constructor & read the properties	
 	public TestBase()  {
@@ -51,7 +58,18 @@ public class TestBase {
 		
 		String pageURL = prop.getProperty("url");
 		driver.get(pageURL);
-		
-		
+			
 	}
+	
+	public void captureScreenshot(String testName) {
+        File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        String timestamp = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date(0));
+        String filePath = "screenshots/" + testName + "_" + timestamp + ".png";
+        try {
+            FileUtils.copyFile(screenshot, new File(filePath));
+            System.out.println("Screenshot saved at: " + filePath);
+        } catch (IOException e) {
+            System.out.println("Failed to save screenshot: " + e.getMessage());
+        }
+    }
 }
